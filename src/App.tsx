@@ -8,10 +8,10 @@ const App: React.FC = () => {
     <div className="container">
       <h1>top bar</h1>
       <div className="row">
-        <div className="col-sm-8">
+        <div className="col-sm-4">
           <PendingOrders/>
         </div>
-        <div className="col-sm-4">
+        <div className="col-sm-8">
           <ItemsInventory/>
         </div>
       </div>

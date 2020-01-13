@@ -6,5 +6,11 @@ export default {
       method: "get",
       url: "https://demo5544737.mockable.io/items"
     });
+  },
+  getOrders: function() {
+    return axios({
+      method: "get",
+      url: "https://demo5544737.mockable.io/orders"
+    });
   }
 };
