@@ -25,6 +25,7 @@ const PendingOrders: React.FC = () => {
       <table className="table">
         <thead className="thead-dark">
           <tr>
+            <th scope="col">Order Index</th>
             <th scope="col">Recipe Number</th>
             <th scope="col">Status</th>
           </tr>
@@ -32,8 +33,9 @@ const PendingOrders: React.FC = () => {
         <tbody>
           {orders.map((order, i: number) => (
             <tr key={i}>
+              <th scope="row">{i}</th>
               <th scope="row">{order.recipe}</th>
-              {order.pending && <td>"Pending"</td>}
+              {order.pending && <td>Pending</td>}
             </tr>
           ))}
         </tbody>
