@@ -4,6 +4,7 @@ import API from "./API/API";
 import StatusBar from "./components/StatusBar/StatusBar";
 import ItemsInventory from "./components/ItemsInventory/ItemsInventory";
 import PendingOrders from "./components/PendingOrders/PendingOrders";
+import NewRecipe from "./components/NewRecipe/NewRecipe";
 
 const App: React.FC = () => {
   const [orders, setOrders] = useState([
@@ -32,17 +33,26 @@ const App: React.FC = () => {
           inProgress: 0,
           fulfilled: 0
         };
+        let recipeMap = {};
         for (let i = 0; i < orders.length; i++) {
-          if (orders[i].pending) {
+          let currentOrder = orders[i];
+          if (currentOrder.pending) {
             tempOrderStatusMap.pending++;
-          } else if (orders[i].cancelled) {
+          } else if (currentOrder.cancelled) {
             tempOrderStatusMap.cancelled++;
-          } else if (orders[i].inProgress) {
+          } else if (currentOrder.inProgress) {
             tempOrderStatusMap.inProgress++;
-          } else if (orders[i].fulfilled) {
+          } else if (currentOrder.fulfilled) {
             tempOrderStatusMap.fulfilled++;
           }
+          //TODO: Add typing to this.
+          // if(recipeMap[currentOrder.recipe){
+          //   recipeMap[currentOrder.recipe]++
+          // }else{
+          //   recipeMap[currentOrder.recipe] = 1;
+          // }
         }
+        //TODO: Loop back through orders again and add total number of times a recipe is called to the object.
         setOrderStatusMap(tempOrderStatusMap);
       })
       .catch(err => {
@@ -55,11 +65,16 @@ const App: React.FC = () => {
       <StatusBar />
       <div className="container">
         <div className="row">
-          <div className="col-sm-4">
+          <div className="col-md-6">
             <PendingOrders />
           </div>
-          <div className="col-sm-8">
+          <div className="col-md-6">
             <ItemsInventory />
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-md-12">
+            <NewRecipe />
           </div>
         </div>
       </div>
