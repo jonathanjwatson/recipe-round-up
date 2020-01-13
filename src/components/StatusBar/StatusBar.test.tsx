@@ -1,10 +1,10 @@
 import React from "react";
 import { render, cleanup } from '@testing-library/react';
-import App from "./App";
+import StatusBar from "./StatusBar";
 
 afterEach(cleanup);
 
 it("renders", () => {
-  const { asFragment } = render(<App />);
+  const { asFragment } = render(<StatusBar />);
   expect(asFragment()).toMatchSnapshot();
 });

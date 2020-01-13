@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<DocumentFragment>
+  <h1>
+    Item Inventory
+  </h1>
+  <table
+    class="table"
+  >
+    <thead
+      class="thead-dark"
+    >
+      <tr>
+        <th
+          scope="col"
+        >
+          ID
+        </th>
+        <th
+          scope="col"
+        >
+          Name
+        </th>
+        <th
+          scope="col"
+        >
+          <input
+            placeholder="Filter by color"
+            type="text"
+          />
+        </th>
+        <th
+          scope="col"
+        >
+          Quantity
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th
+          scope="row"
+        />
+        <td />
+        <td />
+        <td />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
