@@ -39,15 +39,15 @@ const NewRecipe: React.FC = () => {
             {recipes.map((recipe, i: number) => (
               <tr key={i}>
                 <th scope="row">{recipe.id}</th>
-                <th scope="row">{recipe.name}</th>
-                <th scope="row">
+                <td>{recipe.name}</td>
+                <td>
                   {recipe.id && <span>Loop through items</span>}
-                </th>
-                <th scope="row">
+                </td>
+                <td>
                   {recipe.id && (
                     <button className="btn btn-dark">Create Order</button>
                   )}
-                </th>
+                </td>
               </tr>
             ))}
           </tbody>
