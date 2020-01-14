@@ -37,16 +37,7 @@ exports[`renders 1`] = `
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr>
-        <th
-          scope="row"
-        />
-        <td />
-        <td />
-        <td />
-      </tr>
-    </tbody>
+    <tbody />
   </table>
 </DocumentFragment>
 `;

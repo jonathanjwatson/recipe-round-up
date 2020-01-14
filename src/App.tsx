@@ -35,7 +35,12 @@ const App: React.FC = () => {
       .catch(err => {
         console.log(err);
       });
+      
   }, []);
+
+  const createOrder = () => {
+    console.log("Create an order!");
+  };
 
   const getOrderStatusMap = (orders: [Order]) => {
     let tempOrderStatusMap = {

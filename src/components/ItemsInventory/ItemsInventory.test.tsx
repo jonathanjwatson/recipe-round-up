@@ -4,7 +4,9 @@ import ItemsInventory from "./ItemsInventory";
 
 afterEach(cleanup);
 
+const items=[];
+
 it("renders", () => {
-  const { asFragment } = render(<ItemsInventory />);
+  const { asFragment } = render(<ItemsInventory items={items}/>);
   expect(asFragment()).toMatchSnapshot();
 });

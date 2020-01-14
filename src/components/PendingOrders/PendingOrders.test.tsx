@@ -4,7 +4,11 @@ import PendingOrders from "./PendingOrders";
 
 afterEach(cleanup);
 
+const orders = [];
+
+const getOrderStatusMap = jest.fn();
+
 it("renders", () => {
-  const { asFragment } = render(<PendingOrders />);
+  const { asFragment } = render(<PendingOrders getOrderStatusMap={() => getOrderStatusMap}/>);
   expect(asFragment()).toMatchSnapshot();
 });

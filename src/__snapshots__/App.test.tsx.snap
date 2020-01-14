@@ -99,9 +99,8 @@ exports[`renders 1`] = `
               <th
                 scope="row"
               />
-              <th
-                scope="row"
-              />
+              <td />
+              <td />
             </tr>
           </tbody>
         </table>
@@ -198,15 +197,9 @@ exports[`renders 1`] = `
               <th
                 scope="row"
               />
-              <th
-                scope="row"
-              />
-              <th
-                scope="row"
-              />
-              <th
-                scope="row"
-              />
+              <td />
+              <td />
+              <td />
             </tr>
           </tbody>
         </table>

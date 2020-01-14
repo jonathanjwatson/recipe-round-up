@@ -30,6 +30,7 @@ const PendingOrders: React.FC<Props> = ({ getOrderStatusMap }) => {
 
   useEffect(() => {
     getOrderStatusMap(orders);
+    // eslint-disable-next-line
   }, [orders]);
 
   const calculateTotalRecipeUsage = orders => {
