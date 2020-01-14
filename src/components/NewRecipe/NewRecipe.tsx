@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import API from "../../API/API";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
-const NewRecipe: React.FC = () => {
+interface Props {
+  createOrder: (recipe) => void;
+}
+
+const NewRecipe: React.FC<Props> = ({createOrder}) => {
   const [recipes, setRecipes] = useState([
     {
       id: null,
@@ -45,7 +49,7 @@ const NewRecipe: React.FC = () => {
                 </td>
                 <td>
                   {recipe.id && (
-                    <button className="btn btn-dark">Create Order</button>
+                    <button className="btn btn-dark" onClick={() => createOrder(recipe)}>Create Order</button>
                   )}
                 </td>
               </tr>

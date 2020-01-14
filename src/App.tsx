@@ -9,6 +9,8 @@ import OrderStatusMap from "./interfaces/OrderStatusMap.interface";
 import Order from "./interfaces/Order.interface";
 
 const App: React.FC = () => {
+  //TODO: Move these out into Redux store.
+
   const [orderStatusMap, setOrderStatusMap] = useState<OrderStatusMap>({
     pending: null,
     cancelled: null,
@@ -24,6 +26,8 @@ const App: React.FC = () => {
     }
   ]);
 
+  const [itemHashMap, setItemHashMap] = useState({});
+
   useEffect(() => {
     API.getItems()
       .then(response => {
@@ -31,17 +35,49 @@ const App: React.FC = () => {
         //TODO: Create story for back-end team to fix typo.
         //TODO: Change colors to simple string. This will help with filter. Comma separate them.
         setItems(response.data.itens);
+        let tempItemHashMap = {};
+        for (let i = 0; i < response.data.itens.length; i++) {
+          tempItemHashMap[response.data.itens[i].id] =
+            response.data.itens[i].qty;
+        }
+        setItemHashMap(tempItemHashMap);
       })
       .catch(err => {
         console.log(err);
       });
-      
   }, []);
 
-  const createOrder = () => {
-    console.log("Create an order!");
+  /**
+   * Takes in the recipe object, compares required items to items in stock.
+   * If insufficient items in stock, alert the user.
+   * Otherwise, makes API Call to back-end to create an order.
+   * @param recipe
+   */
+  const createOrder = recipe => {
+    for (let i = 0; i < recipe.items.length; i++) {
+      //TODO: Create task for back-end team to update "quntity"
+      if (itemHashMap[recipe.items[i].id] < recipe.items[i].quntity) {
+        alert("Insufficient items in stock to make this recipe!");
+        return;
+      } else {
+        console.log("You've got plenty!");
+      }
+    }
+    API.createOrder(recipe.number)
+      .then(response => {
+        console.log(response);
+        alert("Order successfully created!");
+        //TODO: Make API call to back-end to update items used in recipe
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
+  /**
+   * Takes in an array of order objects and generates the status hashmap, setting it on state hook.
+   * @param orders
+   */
   const getOrderStatusMap = (orders: [Order]) => {
     let tempOrderStatusMap = {
       cancelled: 0,
@@ -80,7 +116,7 @@ const App: React.FC = () => {
         </div>
         <div className="row">
           <div className="col-md-12">
-            <NewRecipe />
+            <NewRecipe createOrder={recipe => createOrder(recipe)} />
           </div>
         </div>
       </div>
