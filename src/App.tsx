@@ -51,6 +51,9 @@ const App: React.FC = () => {
       .then(response => {
         alert("Order successfully created!");
         //TODO: Make API call to back-end to update items used in recipe
+        // then, set that updated array on state.
+        // for now . . .
+        getItems();
       })
       .catch(err => {
         console.log(err);
