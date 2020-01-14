@@ -3,7 +3,8 @@ import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import Item from "../../interfaces/Item.interface";
 
 interface ItemProps {
-  items: Array<Item>
+  items: Array<Item>;
+  filterItemColors: (searchCriteria: string) => void;
 }
 
 const ItemInventory: React.FC<ItemProps> = (props: ItemProps) => {
@@ -19,7 +20,7 @@ const ItemInventory: React.FC<ItemProps> = (props: ItemProps) => {
               <th scope="col">Name</th>
               <th scope="col">
                 {/* TODO: Convert this to an input that filters state values. */}
-                <input type="text" placeholder="Filter by color" />
+                <input type="text" placeholder="Filter by color" onChange={(e) => {props.filterItemColors(e.target.value)}}/>
               </th>
               <th scope="col">Quantity</th>
             </tr>
@@ -29,7 +30,7 @@ const ItemInventory: React.FC<ItemProps> = (props: ItemProps) => {
               <tr key={i}>
                 <th scope="row">{item.id}</th>
                 <td>{item.name}</td>
-                <td>{item.colors && <Colors colors={item.colors} />}</td>
+                <td>{item.colorString}</td>
                 <td>{item.qty}</td>
               </tr>
             ))}
@@ -40,14 +41,14 @@ const ItemInventory: React.FC<ItemProps> = (props: ItemProps) => {
   );
 };
 
-const Colors: React.FC<{ colors: Array<string> }> = ({ colors }) => {
-  return (
-    <>
-      {colors.map((color: string, i: number) => (
-        <span key={i}>{color} </span>
-      ))}
-    </>
-  );
-};
+// const Colors: React.FC<{ colors: Array<string> }> = ({ colors }) => {
+//   return (
+//     <>
+//       {colors.map((color: string, i: number) => (
+//         <span key={i}>{color} </span>
+//       ))}
+//     </>
+//   );
+// };
 
 export default ItemInventory;

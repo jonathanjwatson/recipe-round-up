@@ -10,41 +10,27 @@ import Order from "./interfaces/Order.interface";
 
 const App: React.FC = () => {
   //TODO: Move these out into Redux store.
-
   const [orderStatusMap, setOrderStatusMap] = useState<OrderStatusMap>({
     pending: null,
     cancelled: null,
     inProgress: null,
     fulfilled: null
   });
+
   const [items, setItems] = useState([
     {
       name: "",
       id: "",
       colors: [],
-      qty: ""
+      qty: "",
+      colorString: ""
     }
   ]);
 
   const [itemHashMap, setItemHashMap] = useState({});
 
   useEffect(() => {
-    API.getItems()
-      .then(response => {
-        console.log(response.data.itens);
-        //TODO: Create story for back-end team to fix typo.
-        //TODO: Change colors to simple string. This will help with filter. Comma separate them.
-        setItems(response.data.itens);
-        let tempItemHashMap = {};
-        for (let i = 0; i < response.data.itens.length; i++) {
-          tempItemHashMap[response.data.itens[i].id] =
-            response.data.itens[i].qty;
-        }
-        setItemHashMap(tempItemHashMap);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    getItems();
   }, []);
 
   /**
@@ -68,6 +54,47 @@ const App: React.FC = () => {
         console.log(response);
         alert("Order successfully created!");
         //TODO: Make API call to back-end to update items used in recipe
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
+  const filterItemColors = (searchCriteria: string) => {
+    //TODO: Add debouncing for faster performance
+    if (searchCriteria === "") {
+      getItems();
+    } else {
+      //TODO: Make it work backward (deleting letter does not re-introduce it to display)
+      let itemsArray = [...items];
+      const filteredArray = itemsArray.filter(item => {
+        const regex = new RegExp(searchCriteria, "gi");
+        return item.colorString.match(regex);
+      });
+      setItems(filteredArray);
+    }
+  };
+
+  const getItems = () => {
+    API.getItems()
+      .then(response => {
+        //TODO: Create story for back-end team to fix typo "itens".
+        let tempItems = response.data.itens.map(item => {
+          if (Array.isArray(item.colors)) {
+            let colorString = item.colors.join(", ");
+            item.colorString = colorString;
+          } else {
+            item.colorString = "";
+          }
+          return item;
+        });
+        setItems(tempItems);
+        let tempItemHashMap = {};
+        for (let i = 0; i < response.data.itens.length; i++) {
+          tempItemHashMap[response.data.itens[i].id] =
+            response.data.itens[i].qty;
+        }
+        setItemHashMap(tempItemHashMap);
       })
       .catch(err => {
         console.log(err);
@@ -111,7 +138,12 @@ const App: React.FC = () => {
             />
           </div>
           <div className="col-md-6">
-            <ItemsInventory items={items} />
+            <ItemsInventory
+              items={items}
+              filterItemColors={searchCriteria =>
+                filterItemColors(searchCriteria)
+              }
+            />
           </div>
         </div>
         <div className="row">
