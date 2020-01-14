@@ -1,10 +1,12 @@
 import React from "react";
 import { render, cleanup } from '@testing-library/react';
-import App from "./App";
+import ItemsInventory from "./ItemsInventory";
 
 afterEach(cleanup);
 
+const items=[];
+
 it("renders", () => {
-  const { asFragment } = render(<App />);
+  const { asFragment } = render(<ItemsInventory items={items}/>);
   expect(asFragment()).toMatchSnapshot();
 });

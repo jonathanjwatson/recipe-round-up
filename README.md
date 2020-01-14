@@ -1,6 +1,10 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Recipe Round Up
 
-## Available Scripts
+## App Purpose
+
+A restaurant needs to keep track on how many ingredients it has left in stock after each order has been placed. They also want to know how many times a recipe has been ordered. This app is a ui that will let management keep track of these things in a cohesive dashboard.
+
+## App Commands
 
 In the project directory, you can run:
 
@@ -9,38 +13,35 @@ In the project directory, you can run:
 Runs the app in the development mode.<br />
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
-
 ### `yarn test`
 
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## App Functionality
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. View pending orders and items inventory on same screen. 
+2. Top navbar with current number of cancelled, pending, in progress, and fulfilled orders is visible.
+3. Create Order checks for items in stock and will not create the order if appropriate items are not in stock.
+4. Items may be filtered by color. 
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Future Development
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Ability to cancel an order in pending state within three minutes of the order being created (suggest a back-end update for created DTTM).
+2. Order should be in "pending" state when first created and transitioned into "in progress" after 3 minutes of being created (suggest building a CRON scheduler microservice to handle this at the database layer ).
+3. Would like to extract data store into a redux store. 
 
-### `yarn eject`
+## App Technologies
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+* Recipe Round Up is built in React using typescript. 
+* Bootstrap CSS framework was imported for initial mockup. 
+* App is automatically deployed to AWS Amplify on push to master or develop.
+* Unit tests (primarily only snapshots) are run with React Testing Library
+* A re-usable error boundary wraps each component to ensure the dashboard will continue to load, even if an error occurs in a single child component.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Deployed App
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Master Branch can be found here: https://master.d389g2auxz2t46.amplifyapp.com/
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-Test
+Develop Branch can be found here: https://develop.d389g2auxz2t46.amplifyapp.com/
+ 

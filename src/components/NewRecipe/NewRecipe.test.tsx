@@ -1,10 +1,10 @@
 import React from "react";
 import { render, cleanup } from '@testing-library/react';
-import App from "./App";
+import NewRecipe from "./NewRecipe";
 
 afterEach(cleanup);
 
 it("renders", () => {
-  const { asFragment } = render(<App />);
+  const { asFragment } = render(<NewRecipe />);
   expect(asFragment()).toMatchSnapshot();
 });

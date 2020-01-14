@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders 1`] = `
+<DocumentFragment>
+  <h1>
+    New Recipe
+  </h1>
+  <table
+    class="table"
+  >
+    <thead
+      class="thead-dark"
+    >
+      <tr>
+        <th
+          scope="col"
+        >
+          Recipe Id
+        </th>
+        <th
+          scope="col"
+        >
+          Recipe Name
+        </th>
+        <th
+          scope="col"
+        />
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th
+          scope="row"
+        />
+        <td />
+        <td />
+      </tr>
+    </tbody>
+  </table>
+</DocumentFragment>
+`;
