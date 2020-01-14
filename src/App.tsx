@@ -45,13 +45,10 @@ const App: React.FC = () => {
       if (itemHashMap[recipe.items[i].id] < recipe.items[i].quntity) {
         alert("Insufficient items in stock to make this recipe!");
         return;
-      } else {
-        console.log("You've got plenty!");
       }
     }
     API.createOrder(recipe.number)
       .then(response => {
-        console.log(response);
         alert("Order successfully created!");
         //TODO: Make API call to back-end to update items used in recipe
       })
