@@ -184,11 +184,6 @@ exports[`renders 1`] = `
               </th>
               <th
                 scope="col"
-              >
-                Required Ingredients
-              </th>
-              <th
-                scope="col"
               />
             </tr>
           </thead>
@@ -197,7 +192,6 @@ exports[`renders 1`] = `
               <th
                 scope="row"
               />
-              <td />
               <td />
               <td />
             </tr>

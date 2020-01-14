@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 import Item from "../../interfaces/Item.interface";
 
 interface ItemProps {
   items: Array<Item>;
-  filterItemColors: (searchCriteria: string) => void;
 }
 
 const ItemInventory: React.FC<ItemProps> = (props: ItemProps) => {
+  const { items } = props;
+
+  const [filteredItems, setFilteredItems] = useState(props.items);
+
+  useEffect(() => {
+    setFilteredItems(items);
+  }, [items]);
+
+  /**
+   * Takes in search criteria from the input box and filters the passed items array.
+   * @param searchCriteria
+   */
+  const filterItemColors = (searchCriteria: string) => {
+    //TODO: Add debouncing for faster performance
+    const filteredArray = items.filter(item => {
+      const regex = new RegExp(searchCriteria, "gi");
+      return item.colorString.match(regex);
+    });
+    setFilteredItems(filteredArray);
+  };
 
   return (
     <>
@@ -19,14 +38,19 @@ const ItemInventory: React.FC<ItemProps> = (props: ItemProps) => {
               <th scope="col">ID</th>
               <th scope="col">Name</th>
               <th scope="col">
-                {/* TODO: Convert this to an input that filters state values. */}
-                <input type="text" placeholder="Filter by color" onChange={(e) => {props.filterItemColors(e.target.value)}}/>
+                <input
+                  type="text"
+                  placeholder="Filter by color"
+                  onChange={e => {
+                    filterItemColors(e.target.value);
+                  }}
+                />
               </th>
               <th scope="col">Quantity</th>
             </tr>
           </thead>
           <tbody>
-            {props.items.map((item, i: number) => (
+            {filteredItems.map((item, i: number) => (
               <tr key={i}>
                 <th scope="row">{item.id}</th>
                 <td>{item.name}</td>
@@ -40,15 +64,5 @@ const ItemInventory: React.FC<ItemProps> = (props: ItemProps) => {
     </>
   );
 };
-
-// const Colors: React.FC<{ colors: Array<string> }> = ({ colors }) => {
-//   return (
-//     <>
-//       {colors.map((color: string, i: number) => (
-//         <span key={i}>{color} </span>
-//       ))}
-//     </>
-//   );
-// };
 
 export default ItemInventory;

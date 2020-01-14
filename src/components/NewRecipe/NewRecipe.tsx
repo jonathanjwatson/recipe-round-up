@@ -6,7 +6,7 @@ interface Props {
   createOrder: (recipe) => void;
 }
 
-const NewRecipe: React.FC<Props> = ({createOrder}) => {
+const NewRecipe: React.FC<Props> = ({ createOrder }) => {
   const [recipes, setRecipes] = useState([
     {
       id: null,
@@ -35,7 +35,6 @@ const NewRecipe: React.FC<Props> = ({createOrder}) => {
             <tr>
               <th scope="col">Recipe Id</th>
               <th scope="col">Recipe Name</th>
-              <th scope="col">Required Ingredients</th>
               <th scope="col"></th>
             </tr>
           </thead>
@@ -45,11 +44,13 @@ const NewRecipe: React.FC<Props> = ({createOrder}) => {
                 <th scope="row">{recipe.id}</th>
                 <td>{recipe.name}</td>
                 <td>
-                  {recipe.id && <span>Loop through items</span>}
-                </td>
-                <td>
                   {recipe.id && (
-                    <button className="btn btn-dark" onClick={() => createOrder(recipe)}>Create Order</button>
+                    <button
+                      className="btn btn-dark"
+                      onClick={() => createOrder(recipe)}
+                    >
+                      Create Order
+                    </button>
                   )}
                 </td>
               </tr>

@@ -9,7 +9,7 @@ import OrderStatusMap from "./interfaces/OrderStatusMap.interface";
 import Order from "./interfaces/Order.interface";
 
 const App: React.FC = () => {
-  //TODO: Move these out into Redux store.
+  //TODO: Consider moving these out into Redux store.
   const [orderStatusMap, setOrderStatusMap] = useState<OrderStatusMap>({
     pending: null,
     cancelled: null,
@@ -60,21 +60,13 @@ const App: React.FC = () => {
       });
   };
 
-  const filterItemColors = (searchCriteria: string) => {
-    //TODO: Add debouncing for faster performance
-    if (searchCriteria === "") {
-      getItems();
-    } else {
-      //TODO: Make it work backward (deleting letter does not re-introduce it to display)
-      let itemsArray = [...items];
-      const filteredArray = itemsArray.filter(item => {
-        const regex = new RegExp(searchCriteria, "gi");
-        return item.colorString.match(regex);
-      });
-      setItems(filteredArray);
-    }
-  };
-
+  /**
+   * Makes the API call to get items
+   * converts the colors array into a more-easily-searchable string
+   * sets items on state hook
+   * generates the items hashmap for faster lookup later
+   * sets items hashmap on state hook
+   */
   const getItems = () => {
     API.getItems()
       .then(response => {
@@ -138,12 +130,7 @@ const App: React.FC = () => {
             />
           </div>
           <div className="col-md-6">
-            <ItemsInventory
-              items={items}
-              filterItemColors={searchCriteria =>
-                filterItemColors(searchCriteria)
-              }
-            />
+            <ItemsInventory items={items} />
           </div>
         </div>
         <div className="row">
