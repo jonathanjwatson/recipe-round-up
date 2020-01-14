@@ -4,8 +4,6 @@ import PendingOrders from "./PendingOrders";
 
 afterEach(cleanup);
 
-const orders = [];
-
 const getOrderStatusMap = jest.fn();
 
 it("renders", () => {
