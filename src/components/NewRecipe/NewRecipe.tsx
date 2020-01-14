@@ -14,7 +14,6 @@ const NewRecipe: React.FC = () => {
   useEffect(() => {
     API.getRecipes()
       .then(response => {
-        console.log(response.data);
         //TODO: Create story for back-end team to fix typo: "quntity".
         setRecipes(response.data.recipes);
       })

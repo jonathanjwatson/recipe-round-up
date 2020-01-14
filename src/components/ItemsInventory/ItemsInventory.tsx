@@ -1,29 +1,12 @@
-import React, { useEffect, useState } from "react";
-import API from "../../API/API";
+import React from "react";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
+import Item from "../../interfaces/Item.interface";
 
-const ItemInventory: React.FC = () => {
-  const [items, setItems] = useState([
-    {
-      name: "",
-      id: "",
-      colors: [],
-      qty: ""
-    }
-  ]);
+interface ItemProps {
+  items: Array<Item>
+}
 
-  useEffect(() => {
-    API.getItems()
-      .then(response => {
-        //TODO: Create story for back-end team to fix typo.
-        console.log(response.data.itens);
-        //TODO: Change colors to simple string. This will help with filter. Comma separate them.
-        setItems(response.data.itens);
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }, []);
+const ItemInventory: React.FC<ItemProps> = (props: ItemProps) => {
 
   return (
     <>
@@ -42,7 +25,7 @@ const ItemInventory: React.FC = () => {
             </tr>
           </thead>
           <tbody>
-            {items.map((item, i: number) => (
+            {props.items.map((item, i: number) => (
               <tr key={i}>
                 <th scope="row">{item.id}</th>
                 <td>{item.name}</td>

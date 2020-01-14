@@ -2,23 +2,51 @@ import React, { useEffect, useState } from "react";
 import API from "../../API/API";
 import ErrorBoundary from "../ErrorBoundary/ErrorBoundary";
 
-const PendingOrders: React.FC = () => {
+interface Props {
+  getOrderStatusMap: (orders) => void;
+}
+
+const PendingOrders: React.FC<Props> = ({ getOrderStatusMap }) => {
   const [orders, setOrders] = useState([
     {
       pending: null,
-      recipe: null
+      recipe: null,
+      totalTimesMade: null
     }
   ]);
 
   useEffect(() => {
     API.getOrders()
       .then(response => {
-        setOrders(response.data.orders);
+        const orderArrayWithTotals = calculateTotalRecipeUsage(
+          response.data.orders
+        );
+        setOrders(orderArrayWithTotals);
       })
       .catch(err => {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    getOrderStatusMap(orders);
+  }, [orders]);
+
+  const calculateTotalRecipeUsage = orders => {
+    const ordersClone = [...orders];
+    let recipeMap = {};
+    for (let i = 0; i < orders.length; i++) {
+      if (recipeMap[orders[i].recipe]) {
+        recipeMap[orders[i].recipe]++;
+      } else {
+        recipeMap[orders[i].recipe] = 1;
+      }
+    }
+    for (let i = 0; i < orders.length; i++) {
+      ordersClone[i].totalTimesMade = recipeMap[ordersClone[i].recipe];
+    }
+    return ordersClone;
+  };
 
   return (
     <>
@@ -37,9 +65,9 @@ const PendingOrders: React.FC = () => {
             {orders.map((order, i: number) => (
               <tr key={i}>
                 <th scope="row">{order.recipe && i}</th>
-                <th scope="row">{order.recipe}</th>
+                <td>{order.recipe}</td>
                 {order.pending && <td>Pending</td>}
-                {order.recipe && <td>100</td>}
+                <td>{order.totalTimesMade}</td>
               </tr>
             ))}
           </tbody>
